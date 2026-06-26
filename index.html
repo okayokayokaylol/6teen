@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>6teen</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --pink: #FF6EB4;
+  --pink-light: #FFD6EC;
+  --pink-pale: #FFF0F8;
+  --blue: #6BBFFF;
+  --blue-light: #D6EEFF;
+  --blue-pale: #F0F8FF;
+  --white: #FFFFFF;
+  --off-white: #FDF8FC;
+  --text-dark: #1A0A14;
+  --text-mid: #6B3A56;
+  --text-muted: #B088A0;
+  --border: rgba(255,110,180,0.18);
+  --card: rgba(255,255,255,0.85);
+}
+body { font-family: 'Inter', sans-serif; background: var(--off-white); color: var(--text-dark); overflow-x: hidden; }
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.1rem 2.5rem;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; letter-spacing: 0.08em;
+  background: linear-gradient(135deg, #FF6EB4, #6BBFFF);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { color: var(--text-mid); text-decoration: none; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
+.nav-links a:hover { color: var(--pink); }
+.nav-cta {
+  background: linear-gradient(135deg, #FF6EB4, #FF9ED4); color: #fff; border: none;
+  padding: 0.5rem 1.3rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; cursor: pointer; border-radius: 20px;
+}
+.hero {
+  min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+  align-items: center; padding: 7rem 2.5rem 3rem;
+  background: linear-gradient(135deg, #FFF0F8 0%, #F0F8FF 50%, #FFF0F8 100%);
+  position: relative; overflow: hidden;
+}
+.blob {
+  position: absolute; border-radius: 50%; pointer-events: none;
+}
+.blob1 { width: 500px; height: 500px; top: -100px; right: -100px; background: radial-gradient(circle, rgba(255,110,180,0.15) 0%, transparent 70%); }
+.blob2 { width: 400px; height: 400px; bottom: -80px; left: 30%; background: radial-gradient(circle, rgba(107,191,255,0.12) 0%, transparent 70%); }
+.hero-left { position: relative; z-index: 1; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--pink-light); color: var(--pink);
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 0.35rem 0.9rem; border-radius: 20px; margin-bottom: 1.5rem;
+}
+.eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pink); }
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 10vw, 8rem); line-height: 0.92;
+  color: var(--text-dark); margin-bottom: 1.5rem;
+}
+.hero-title .grad {
+  background: linear-gradient(135deg, #FF6EB4, #6BBFFF);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-sub { font-size: 1rem; color: var(--text-mid); max-width: 400px; line-height: 1.75; margin-bottom: 2.5rem; }
+.hero-actions { display: flex; gap: 1rem; }
+.btn-pink {
+  background: linear-gradient(135deg, #FF6EB4, #FF9ED4); color: #fff; border: none;
+  padding: 0.85rem 2rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; cursor: pointer; border-radius: 25px; transition: opacity 0.2s;
+}
+.btn-pink:hover { opacity: 0.88; }
+.btn-ghost {
+  background: transparent; color: var(--pink); border: 1.5px solid var(--pink);
+  padding: 0.85rem 2rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; cursor: pointer; border-radius: 25px;
+}
+.btn-ghost:hover { background: var(--pink-light); }
+.hero-right { display: flex; justify-content: center; align-items: center; position: relative; z-index: 1; }
+.hero-device-wrap { position: relative; display: flex; justify-content: center; align-items: center; }
+.hero-glow {
+  position: absolute; width: 260px; height: 260px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,110,180,0.25) 0%, transparent 70%);
+  animation: pulse 3s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { transform: scale(1); opacity:0.8; } 50% { transform: scale(1.1); opacity:1; } }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+.hero-device { position: relative; z-index: 2; animation: float 4s ease-in-out infinite; }
+.marquee-bar { padding: 0.9rem 0; overflow: hidden; background: linear-gradient(135deg, #FF6EB4, #FF9ED4, #6BBFFF); }
+.marquee-track { display: flex; gap: 2.5rem; animation: marquee 20s linear infinite; white-space: nowrap; }
+.marquee-item { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.2em; color: rgba(255,255,255,0.9); }
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.section { padding: 6rem 2.5rem; }
+.section-label {
+  display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--pink); background: var(--pink-light);
+  padding: 0.3rem 0.8rem; border-radius: 20px; margin-bottom: 1rem;
+}
+.section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem,5vw,4rem); line-height: 1; color: var(--text-dark); margin-bottom: 0.75rem; }
+.section-sub { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 3rem; max-width: 500px; line-height: 1.6; }
+.products-section { background: var(--white); }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+.prod-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 16px;
+  overflow: hidden; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;
+}
+.prod-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(255,110,180,0.15); }
+.prod-visual { position: relative; height: 300px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.prod-visual-bg { position: absolute; inset: 0; }
+.prod-svg { position: relative; z-index: 2; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+.prod-card:hover .prod-svg { transform: scale(1.08) translateY(-6px); }
+.prod-overlay {
+  position: absolute; inset: 0; z-index: 3;
+  display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem;
+  background: linear-gradient(to top, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0) 55%);
+  opacity: 0; transition: opacity 0.3s;
+}
+.prod-card:hover .prod-overlay { opacity: 1; }
+.overlay-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--text-dark); margin-bottom: 0.4rem; }
+.overlay-desc { font-size: 0.78rem; color: var(--text-mid); line-height: 1.5; margin-bottom: 0.75rem; }
+.overlay-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.otag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 10px; }
+.prod-info { padding: 1.1rem 1.25rem 1.25rem; border-top: 1px solid var(--border); }
+.prod-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--text-dark); }
+.prod-type { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.2rem; }
+.stats-bar { background: linear-gradient(135deg, #FF6EB4 0%, #FF9ED4 50%, #6BBFFF 100%); padding: 4rem 2.5rem; }
+.stats-inner { display: flex; max-width: 900px; margin: 0 auto; }
+.stat { flex: 1; text-align: center; padding: 1.5rem; border-right: 1px solid rgba(255,255,255,0.3); }
+.stat:last-child { border-right: none; }
+.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: #fff; line-height: 1; margin-bottom: 0.4rem; }
+.stat-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.75); }
+.about-section { background: var(--blue-pale); padding: 6rem 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.about-pills { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.about-pill { background: var(--blue-light); color: #3A7FCC; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.35rem 0.8rem; border-radius: 20px; }
+.about-text p { font-size: 1rem; color: var(--text-mid); line-height: 1.8; margin-bottom: 1.25rem; }
+.about-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.about-card { background: var(--white); border: 1px solid rgba(107,191,255,0.2); border-radius: 12px; padding: 1.5rem; text-align: center; }
+.about-card:first-child { grid-column: span 2; }
+.about-card-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+.about-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--text-dark); margin-bottom: 0.3rem; }
+.about-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+.testi-section { background: var(--white); padding: 6rem 2.5rem; }
+.testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 1.5rem; }
+.testi-card {
+  background: var(--off-white); border: 1px solid var(--border); border-radius: 16px;
+  padding: 1.75rem; transition: transform 0.2s, box-shadow 0.2s;
+}
+.testi-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(255,110,180,0.1); }
+.testi-qmark { font-family: Georgia,serif; font-size: 4rem; line-height: 0.6; color: var(--pink-light); margin-bottom: 0.5rem; }
+.testi-quote { font-size: 0.95rem; font-weight: 600; color: var(--text-dark); line-height: 1.5; margin-bottom: 0.75rem; }
+.testi-body { font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.25rem; }
+.testi-person { display: flex; align-items: center; gap: 0.85rem; }
+.testi-avatar { width: 46px; height: 46px; border-radius: 50%; overflow: hidden; flex-shrink: 0; border: 2px solid var(--pink-light); }
+.testi-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.testi-name { font-size: 0.8rem; font-weight: 700; color: var(--text-dark); }
+.testi-loc { font-size: 0.7rem; color: var(--text-muted); }
+.testi-stars { color: #FFB800; font-size: 0.75rem; margin-bottom: 0.15rem; }
+.faq-section { background: var(--pink-pale); padding: 6rem 2.5rem; }
+.faq-wrap { max-width: 700px; }
+.faq-item { background: var(--white); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 0.75rem; overflow: hidden; }
+.faq-q { padding: 1.25rem 1.5rem; font-size: 0.9rem; font-weight: 600; color: var(--text-dark); display: flex; justify-content: space-between; align-items: center; cursor: pointer; gap: 1rem; }
+.faq-icon { width: 24px; height: 24px; border-radius: 50%; background: var(--pink-light); color: var(--pink); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; transition: transform 0.2s, background 0.2s; }
+.faq-item.open .faq-icon { transform: rotate(45deg); background: var(--pink); color: #fff; }
+.faq-a { display: none; padding: 1rem 1.5rem 1.25rem; font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; border-top: 1px solid var(--border); }
+.faq-item.open .faq-a { display: block; }
+footer { background: var(--text-dark); padding: 3.5rem 2.5rem 2rem; }
+.footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 2rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 1.5rem; }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.08em; background: linear-gradient(135deg, #FF6EB4, #6BBFFF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.footer-tagline { font-size: 0.8rem; color: rgba(255,255,255,0.35); margin-top: 0.3rem; }
+.footer-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+.footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+.footer-links a:hover { color: var(--pink); }
+.footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.2); }
+.footer-legal { font-size: 0.68rem; color: rgba(255,255,255,0.2); }
+.age-gate { position: fixed; inset: 0; background: linear-gradient(135deg, #FFF0F8, #F0F8FF); z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.25rem; }
+.age-logo { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; letter-spacing: 0.05em; background: linear-gradient(135deg, #FF6EB4, #6BBFFF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.age-p { font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+.age-btns { display: flex; gap: 1rem; margin-top: 0.5rem; }
+.age-no { background: transparent; color: var(--text-muted); border: 1px solid rgba(0,0,0,0.15); padding: 0.8rem 2.2rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border-radius: 25px; }
+</style>
+</head>
+<body>
+
+<div class="age-gate" id="ageGate">
+  <div class="age-logo">6TEEN</div>
+  <p class="age-p">You must be 21+ to enter</p>
+  <div class="age-btns">
+    <button class="btn-pink" style="border-radius:25px;padding:0.8rem 2.2rem;" onclick="document.getElementById('ageGate').style.display='none'">Yes, I'm 21+</button>
+    <button class="age-no" onclick="alert('Sorry, you must be 21 or older.')">No</button>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-logo">6TEEN</div>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <button class="nav-cta">Find a Retailer</button>
+</nav>
+
+<section class="hero">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="hero-left">
+    <div class="eyebrow"><span class="eyebrow-dot"></span> Los Angeles · Premium Disposables</div>
+    <h1 class="hero-title">HIT<br><span class="grad">DIFFERENT.</span></h1>
+    <p class="hero-sub">Top-shelf cannabis in a form you can actually pocket. 6teen disposables — clean oil, real terps, no compromise.</p>
+    <div class="hero-actions">
+      <button class="btn-pink">Shop Products</button>
+      <button class="btn-ghost">Find Near Me</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-device-wrap">
+      <div class="hero-glow"></div>
+      <div class="hero-device">
+        <svg width="140" height="380" viewBox="0 0 140 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="dg1" x1="0" y1="0" x2="140" y2="380" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#FFD6EC"/><stop offset="100%" stop-color="#D6EEFF"/>
+            </linearGradient>
+            <linearGradient id="dg2" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="white" stop-opacity="0.4"/><stop offset="100%" stop-color="white" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <rect x="20" y="30" width="100" height="320" rx="30" fill="url(#dg1)" stroke="rgba(255,110,180,0.3)" stroke-width="1.5"/>
+          <rect x="22" y="32" width="30" height="316" rx="15" fill="url(#dg2)"/>
+          <rect x="45" y="10" width="50" height="28" rx="14" fill="#FF6EB4" opacity="0.6"/>
+          <rect x="58" y="3" width="24" height="14" rx="7" fill="#FF9ED4" opacity="0.8"/>
+          <rect x="45" y="100" width="50" height="140" rx="8" fill="rgba(255,255,255,0.5)" stroke="rgba(255,110,180,0.2)" stroke-width="1"/>
+          <rect x="47" y="170" width="46" height="68" rx="6" fill="rgba(255,110,180,0.2)"/>
+          <rect x="47" y="170" width="46" height="6" rx="3" fill="rgba(255,110,180,0.45)"/>
+          <text x="70" y="280" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="18" fill="rgba(255,110,180,0.65)" letter-spacing="3">6TEEN</text>
+          <rect x="118" y="140" width="8" height="40" rx="4" fill="rgba(107,191,255,0.6)"/>
+          <ellipse cx="70" cy="350" rx="18" ry="8" fill="rgba(255,110,180,0.25)"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span class="marquee-item">Premium Distillate &nbsp;✦&nbsp;</span>
+    <span class="marquee-item">Live Resin &nbsp;✦&nbsp;</span>
+    <span class="marquee-item">Liquid Diamonds &nbsp;✦&nbsp;</span>
+    <span class="marquee-item">Lab Tested &nbsp;✦&nbsp;</span>
+    <span class="marquee-item">Real Terps &nbsp;✦&nbsp;</span>
+    <span class="marquee-item">California Legal &nbsp;✦&nbsp;</span>
+    <span class="marquee-item">Clean Burn &nbsp;✦&nbsp;</span>
+    <span class="marquee-item">Premium Distillate &nbsp;✦&nbsp;</span>
+    <span class="marquee-item">Live Resin &nbsp;✦&nbsp;</span>
+    <span class="marquee-item">Liquid Diamonds &nbsp;✦&nbsp;</span>
+    <span class="marquee-item">Lab Tested &nbsp;✦&nbsp;</span>
+    <span class="marquee-item">Real Terps &nbsp;✦&nbsp;</span>
+    <span class="marquee-item">California Legal &nbsp;✦&nbsp;</span>
+    <span class="marquee-item">Clean Burn &nbsp;✦&nbsp;</span>
+  </div>
+</div>
+
+<section class="section products-section" id="products">
+  <div class="section-label">Our Line</div>
+  <h2 class="section-title">Shop Disposables</h2>
+  <p class="section-sub">Hover over each product to learn more. Every device is filled with premium California-sourced oil.</p>
+  <div class="products-grid">
+
+    <div class="prod-card">
+      <div class="prod-visual">
+        <div class="prod-visual-bg" style="background:linear-gradient(135deg,#FFF0F8,#FFD6EC);"></div>
+        <div class="prod-svg">
+          <svg width="70" height="200" viewBox="0 0 70 200" fill="none">
+            <rect x="10" y="15" width="50" height="170" rx="18" fill="rgba(255,110,180,0.12)" stroke="#FF6EB4" stroke-width="1.5"/>
+            <rect x="25" y="5" width="20" height="16" rx="8" fill="#FF6EB4" opacity="0.7"/>
+            <rect x="20" y="55" width="30" height="80" rx="5" fill="rgba(255,110,180,0.12)" stroke="rgba(255,110,180,0.25)" stroke-width="1"/>
+            <rect x="22" y="105" width="26" height="28" rx="4" fill="rgba(255,110,180,0.2)"/>
+            <text x="35" y="158" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="9" fill="rgba(255,110,180,0.65)" letter-spacing="1">6TEEN</text>
+          </svg>
+        </div>
+        <div class="prod-overlay">
+          <div class="overlay-title">Midnight Drop</div>
+          <div class="overlay-desc">Heavy indica for winding down. Grape, earth, and berry terpene profile. Burns white ash every pull.</div>
+          <div class="overlay-tags">
+            <span class="otag" style="background:#FFD6EC;color:#CC3380;">Indica</span>
+            <span class="otag" style="background:#FFD6EC;color:#CC3380;">1g</span>
+            <span class="otag" style="background:#FFD6EC;color:#CC3380;">Distillate</span>
+          </div>
+        </div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-name">Midnight Drop</div>
+        <div class="prod-type">Indica · 1g · Premium Distillate</div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-visual">
+        <div class="prod-visual-bg" style="background:linear-gradient(135deg,#F0FFF4,#D6FFE8);"></div>
+        <div class="prod-svg">
+          <svg width="70" height="200" viewBox="0 0 70 200" fill="none">
+            <rect x="10" y="15" width="50" height="170" rx="18" fill="rgba(57,200,100,0.1)" stroke="#39C864" stroke-width="1.5"/>
+            <rect x="25" y="5" width="20" height="16" rx="8" fill="#39C864" opacity="0.7"/>
+            <rect x="20" y="55" width="30" height="80" rx="5" fill="rgba(57,200,100,0.1)" stroke="rgba(57,200,100,0.25)" stroke-width="1"/>
+            <rect x="22" y="105" width="26" height="28" rx="4" fill="rgba(57,200,100,0.2)"/>
+            <text x="35" y="158" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="9" fill="rgba(57,200,100,0.65)" letter-spacing="1">6TEEN</text>
+          </svg>
+        </div>
+        <div class="prod-overlay">
+          <div class="overlay-title">Sunrise Slim</div>
+          <div class="overlay-desc">Bright sativa energy. Citrus, pine, and tropical front to back. Built for daytime without the anxiety.</div>
+          <div class="overlay-tags">
+            <span class="otag" style="background:#D6FFE8;color:#1A7A40;">Sativa</span>
+            <span class="otag" style="background:#D6FFE8;color:#1A7A40;">1g</span>
+            <span class="otag" style="background:#D6FFE8;color:#1A7A40;">Live Resin</span>
+          </div>
+        </div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-name">Sunrise Slim</div>
+        <div class="prod-type">Sativa · 1g · Live Resin</div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-visual">
+        <div class="prod-visual-bg" style="background:linear-gradient(135deg,#FFFBF0,#FFE8B0);"></div>
+        <div class="prod-svg">
+          <svg width="70" height="200" viewBox="0 0 70 200" fill="none">
+            <rect x="10" y="15" width="50" height="170" rx="18" fill="rgba(255,180,30,0.1)" stroke="#FFB41E" stroke-width="1.5"/>
+            <rect x="25" y="5" width="20" height="16" rx="8" fill="#FFB41E" opacity="0.7"/>
+            <rect x="20" y="55" width="30" height="80" rx="5" fill="rgba(255,180,30,0.1)" stroke="rgba(255,180,30,0.25)" stroke-width="1"/>
+            <rect x="22" y="105" width="26" height="28" rx="4" fill="rgba(255,180,30,0.2)"/>
+            <text x="35" y="158" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="9" fill="rgba(255,180,30,0.75)" letter-spacing="1">6TEEN</text>
+          </svg>
+        </div>
+        <div class="prod-overlay">
+          <div class="overlay-title">Gold Hour</div>
+          <div class="overlay-desc">Balanced hybrid that keeps you functional. Mango, cookie, and vanilla finish. No crash.</div>
+          <div class="overlay-tags">
+            <span class="otag" style="background:#FFE8B0;color:#8A5A00;">Hybrid</span>
+            <span class="otag" style="background:#FFE8B0;color:#8A5A00;">1g</span>
+            <span class="otag" style="background:#FFE8B0;color:#8A5A00;">Liquid Diamonds</span>
+          </div>
+        </div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-name">Gold Hour</div>
+        <div class="prod-type">Hybrid · 1g · Liquid Diamonds</div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-visual">
+        <div class="prod-visual-bg" style="background:linear-gradient(135deg,#F5F0FF,#DDD0FF);"></div>
+        <div class="prod-svg">
+          <svg width="70" height="200" viewBox="0 0 70 200" fill="none">
+            <rect x="10" y="15" width="50" height="170" rx="18" fill="rgba(150,100,255,0.1)" stroke="#9664FF" stroke-width="1.5"/>
+            <rect x="25" y="5" width="20" height="16" rx="8" fill="#9664FF" opacity="0.7"/>
+            <rect x="20" y="55" width="30" height="80" rx="5" fill="rgba(150,100,255,0.1)" stroke="rgba(150,100,255,0.25)" stroke-width="1"/>
+            <rect x="22" y="105" width="26" height="28" rx="4" fill="rgba(150,100,255,0.2)"/>
+            <text x="35" y="158" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="9" fill="rgba(150,100,255,0.65)" letter-spacing="1">6TEEN</text>
+            <rect x="36" y="19" width="18" height="10" rx="5" fill="#9664FF"/>
+            <text x="45" y="27" text-anchor="middle" font-size="6" fill="white" font-weight="bold">2G</text>
+          </svg>
+        </div>
+        <div class="prod-overlay">
+          <div class="overlay-title">Purple Reign</div>
+          <div class="overlay-desc">The big one. 2g rechargeable packed with Blueberry Kush live resin. Smooth start to finish.</div>
+          <div class="overlay-tags">
+            <span class="otag" style="background:#DDD0FF;color:#4A2A9A;">Indica</span>
+            <span class="otag" style="background:#DDD0FF;color:#4A2A9A;">2g</span>
+            <span class="otag" style="background:#DDD0FF;color:#4A2A9A;">Rechargeable</span>
+          </div>
+        </div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-name">Purple Reign</div>
+        <div class="prod-type">Indica · 2g · Rechargeable</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Legal California</div></div>
+    <div class="stat"><div class="stat-num">4+</div><div class="stat-label">Strains</div></div>
+    <div class="stat"><div class="stat-num">LAB</div><div class="stat-label">Tested Every Batch</div></div>
+    <div class="stat"><div class="stat-num">LA</div><div class="stat-label">Born &amp; Based</div></div>
+  </div>
+</div>
+
+<section class="about-section" id="about">
+  <div class="about-text">
+    <div class="section-label">Our Story</div>
+    <h2 class="section-title">Made for the<br>Real Ones.</h2>
+    <div class="about-pills">
+      <span class="about-pill">Small Batch</span>
+      <span class="about-pill">Lab Tested</span>
+      <span class="about-pill">No Additives</span>
+      <span class="about-pill">CA Licensed</span>
+    </div>
+    <p>6teen is an LA cannabis brand built for people who know the difference. No filler, no fake terps, no cutting corners. We source quality oil, fill our own devices, and test every batch.</p>
+    <p>If it doesn't hit right, it doesn't leave the facility. That's the standard.</p>
+    <button class="btn-pink" style="margin-top:0.5rem;border-radius:25px;">Our Story</button>
+  </div>
+  <div class="about-cards">
+    <div class="about-card">
+      <div class="about-card-icon">🧪</div>
+      <div class="about-card-title">Third-Party Lab Tested</div>
+      <div class="about-card-desc">Every batch tested for potency, pesticides, and residual solvents. COAs available on request.</div>
+    </div>
+    <div class="about-card">
+      <div class="about-card-icon">🌿</div>
+      <div class="about-card-title">Real Terps</div>
+      <div class="about-card-desc">Cannabis-derived terpenes only. No synthetic spray.</div>
+    </div>
+    <div class="about-card">
+      <div class="about-card-icon">🔥</div>
+      <div class="about-card-title">Clean Burn</div>
+      <div class="about-card-desc">White ash. Smooth inhale. No harsh chemical finish.</div>
+    </div>
+  </div>
+</section>
+
+<section class="testi-section" id="reviews">
+  <div class="section-label">What They Say</div>
+  <h2 class="section-title">Real Talk</h2>
+  <p class="section-sub">From daily smokers to shop owners — here's what people are saying.</p>
+  <div class="testi-grid">
+
+    <div class="testi-card">
+      <div class="testi-qmark">"</div>
+      <div class="testi-quote">Hits clean every single time.</div>
+      <div class="testi-body">I've been through so many disposables that taste burnt after a week. 6teen still smacking on the last hit. That's rare.</div>
+      <div class="testi-person">
+        <div class="testi-avatar">
+          <svg viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="23" cy="23" r="23" fill="#FFD6EC"/>
+            <circle cx="23" cy="18" r="8" fill="#FF6EB4" opacity="0.8"/>
+            <ellipse cx="23" cy="40" rx="14" ry="10" fill="#FF6EB4" opacity="0.5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-name">Marcus D.</div>
+          <div class="testi-loc">Compton, CA</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="testi-qmark">"</div>
+      <div class="testi-quote">Gold Hour is my daily driver.</div>
+      <div class="testi-body">Balanced, flavorful, doesn't put me on the couch. Perfect for staying functional but still feeling something.</div>
+      <div class="testi-person">
+        <div class="testi-avatar">
+          <svg viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="23" cy="23" r="23" fill="#D6EEFF"/>
+            <circle cx="23" cy="18" r="8" fill="#6BBFFF" opacity="0.8"/>
+            <ellipse cx="23" cy="40" rx="14" ry="10" fill="#6BBFFF" opacity="0.5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-name">Kiana R.</div>
+          <div class="testi-loc">Inglewood, CA</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="testi-qmark">"</div>
+      <div class="testi-quote">My shop sells through it fast.</div>
+      <div class="testi-body">Customers come back asking for 6teen by name. Packaging looks premium and the oil backs it up. Strong margins too.</div>
+      <div class="testi-person">
+        <div class="testi-avatar">
+          <svg viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="23" cy="23" r="23" fill="#DDD0FF"/>
+            <circle cx="23" cy="18" r="8" fill="#9664FF" opacity="0.8"/>
+            <ellipse cx="23" cy="40" rx="14" ry="10" fill="#9664FF" opacity="0.5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-name">Jake T.</div>
+          <div class="testi-loc">Budtender, Culver City</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="testi-qmark">"</div>
+      <div class="testi-quote">Purple Reign knocked me out — in a good way.</div>
+      <div class="testi-body">I don't mess with 2g pens usually but this earned it. Strong indica, smooth draw, lasted me two weeks.</div>
+      <div class="testi-person">
+        <div class="testi-avatar">
+          <svg viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="23" cy="23" r="23" fill="#D6FFE8"/>
+            <circle cx="23" cy="18" r="8" fill="#39C864" opacity="0.8"/>
+            <ellipse cx="23" cy="40" rx="14" ry="10" fill="#39C864" opacity="0.5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-name">Deon M.</div>
+          <div class="testi-loc">Long Beach, CA</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="faq-section" id="faq">
+  <div class="section-label">You Ask</div>
+  <h2 class="section-title">We Answer</h2>
+  <p class="section-sub">Everything you need to know about 6teen products.</p>
+  <div class="faq-wrap">
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">What's in a 6teen disposable? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Depending on the product: premium distillate, live resin, or liquid diamonds. All sourced from licensed California cultivators. No additives, no cutting agents — just cannabis oil and cannabis-derived terpenes.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Are 6teen products lab tested? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Every batch goes through third-party lab testing for potency, pesticides, residual solvents, and heavy metals. COAs available on request.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Where can I buy 6teen? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Available at licensed California dispensaries. Use the "Find Near Me" button to locate a retailer close to you.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Can my dispensary carry 6teen? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Yes. We work with licensed California retailers. Reach out through the contact page and our distribution team will get back to you.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Do the 2g pens need charging? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Yes — the Purple Reign 2g comes with a rechargeable battery and USB-C port. The 1g units are fully disposable, no charging needed.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">6TEEN</div>
+      <div class="footer-tagline">Premium California Cannabis</div>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#">Retailers</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Instagram</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 6teen. All rights reserved.</div>
+    <div class="footer-legal">21+ only · California licensed cannabis · Keep out of reach of children</div>
+  </div>
+</footer>
+
+</body>
+</html>
